@@ -1,0 +1,47 @@
+server:
+  servlet:
+    context-path: /api
+  port: 1122
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    root: info
+    jdbc:
+      sqlonly: info
+      resultset: debug
+      resultsettable: info
+      connection: off
+      sqltiming: off
+      audit: off
+
+spring:
+  datasource:
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/yu_case_querydsl?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  jpa:
+    open-in-view: false
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
+        hbm2ddl:
+          auto: none
+    hibernate:
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    show-sql: false
+  sql:
+    init:
+      username: root
+      password: 123456
+      schema-locations: classpath:init-sql/schema.sql
+      data-locations: classpath:init-sql/data.sql
+      mode: always  #embedded (default) ???, ????DB???, ??????
